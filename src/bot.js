@@ -36,6 +36,7 @@ bot.on("message", (msg) => {
                         reply_markup: {
                             keyboard: questions[user.progress].answers,
                             one_time_keyboard: true,
+                            resize_keyboard: true,
                             input_field_placeholder:
                                 "Натисніть кнопку відповіді:",
                         },
@@ -64,6 +65,7 @@ bot.on("message", (msg) => {
                                     keyboard: questions[user.progress].answers,
                                     one_time_keyboard: true,
                                     remove_keyboard: true,
+                                    resize_keyboard: true,
                                     input_field_placeholder:
                                         "Натисніть кнопку відповіді:",
                                 },
