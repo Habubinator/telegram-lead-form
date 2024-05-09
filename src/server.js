@@ -4,7 +4,7 @@ const cors = require("cors");
 const { bot, users } = require("./bot");
 
 const app = express();
-const PORT = process.env.SERVER_PORT || 5000;
+const PORT = process.env.PORT || process.env.SERVER_PORT || 5000;
 
 app.options("*", cors());
 app.use(express.json());
