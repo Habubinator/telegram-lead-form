@@ -71,7 +71,7 @@ bot.on("message", (msg) => {
                         );
                     } else {
                         // Коли тест пройдений
-                        logger.logItems(users);
+                        logger.logItems(user);
                         users.delete(msg.from.id);
                         gSh.addUserResults(user);
                         return bot.sendMessage(
