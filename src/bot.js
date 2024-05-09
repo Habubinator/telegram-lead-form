@@ -14,9 +14,6 @@ function jsonToBoldString(jsonObj) {
     for (const key in jsonObj) {
         if (jsonObj.hasOwnProperty(key)) {
             result += `<b>${key}</b>: ${jsonObj[key]}\n`;
-            if (i == 3) {
-                result += `\n\n`;
-            }
         }
         i++;
     }
