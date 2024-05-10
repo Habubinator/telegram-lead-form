@@ -5,6 +5,7 @@ const { bot, users } = require("./bot");
 
 const app = express();
 const PORT = process.env.PORT || process.env.SERVER_PORT || 5000;
+const gSh = require("./gSheetsController");
 
 app.options("*", cors());
 app.use(express.json());
@@ -44,10 +45,13 @@ app.post("/api/login", async (req, res) => {
 
 app.get("/api/getSettings", async (req, res) => {
     try {
-        const userArr = [...users.values()];
+        const gShArr = await gSh.getNonSignedUsers();
         const data = [];
-        for (const user of userArr) {
-            data.push({ user_id: user.user.id, username: user.user.username });
+        for (const user of gShArr) {
+            data.push({
+                user_id: user["chatID користувача"],
+                username: user["ID користувача"],
+            });
         }
         return res.send(data);
     } catch (error) {
@@ -76,9 +80,9 @@ app.post("/api/messageAll", async (req, res) => {
     const { message } = req.body;
     try {
         if (message) {
-            const userArr = [...users.values()];
-            for (const user of userArr) {
-                bot.sendMessage(user.user.id, message, {
+            const gShArr = await gSh.getNonSignedUsers();
+            for (const user of gShArr) {
+                bot.sendMessage(user["chatID користувача"], message, {
                     parse_mode: "HTML",
                 });
             }

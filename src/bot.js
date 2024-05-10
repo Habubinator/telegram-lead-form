@@ -13,7 +13,7 @@ function jsonToBoldString(jsonObj) {
     let i = 0;
     for (const key in jsonObj) {
         if (jsonObj.hasOwnProperty(key)) {
-            result += `<b>${key}</b>: ${jsonObj[key]}\n`; 
+            result += `<b>${key}</b>: ${jsonObj[key]}\n`;
         }
         i++;
     }
@@ -42,6 +42,7 @@ bot.on("message", (msg) => {
                     answers: [],
                 });
                 let user = users.get(msg.from.id);
+                gSh.addNonSignedUsers(user);
                 return bot.sendMessage(
                     chatId,
                     questions[user.progress].question,
@@ -88,6 +89,7 @@ bot.on("message", (msg) => {
                         // Коли тест пройдений
                         logger.logItems(user);
                         users.delete(msg.from.id);
+                        gSh.deleteNonSignedUsers(msg.from.id);
                         gSh.addUserResults(user);
 
                         let stringUser =

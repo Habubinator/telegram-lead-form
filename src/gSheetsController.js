@@ -35,6 +35,63 @@ class gSheetsController {
             logger.logError(error);
         }
     }
+
+    async getNonSignedUsers() {
+        try {
+            const doc = new GoogleSpreadsheet(
+                process.env.GOOGLE_SHEETS_FILE_ID,
+                serviceAccountAuth
+            );
+            await doc.loadInfo();
+            const sheet = doc.sheetsByIndex[1];
+            const rows = await sheet.getRows();
+            const objRows = [];
+            for (const row of rows) {
+                objRows.push(row.toObject());
+            }
+            return objRows;
+        } catch (error) {
+            logger.logError(error);
+        }
+    }
+
+    async addNonSignedUsers(user) {
+        try {
+            const doc = new GoogleSpreadsheet(
+                process.env.GOOGLE_SHEETS_FILE_ID,
+                serviceAccountAuth
+            );
+            await doc.loadInfo();
+            const sheet = doc.sheetsByIndex[1];
+            await sheet.addRow({
+                "chatID користувача": user.user.id,
+                "ID користувача": user.user.username,
+            });
+        } catch (error) {
+            logger.logError(error);
+        }
+    }
+
+    async deleteNonSignedUsers(userId) {
+        try {
+            const doc = new GoogleSpreadsheet(
+                process.env.GOOGLE_SHEETS_FILE_ID,
+                serviceAccountAuth
+            );
+            await doc.loadInfo();
+            const sheet = doc.sheetsByIndex[1];
+            const rows = await sheet.getRows();
+            const objRows = [];
+            for (const row of rows) {
+                if (row.get("chatID користувача") == userId) {
+                    row.delete();
+                }
+            }
+            return objRows;
+        } catch (error) {
+            logger.logError(error);
+        }
+    }
 }
 
 module.exports = new gSheetsController();
