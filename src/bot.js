@@ -26,7 +26,6 @@ bot.setMyCommands([{ command: "/start", description: "Запустити бот�
 bot.on("message", (msg) => {
     try {
         const chatId = msg.chat.id;
-        console.log(msg);
         switch (msg.text) {
             case "/start":
                 // Щоб ніхто не зламав скрипт, додаючи бота до чату
