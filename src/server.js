@@ -10,7 +10,7 @@ app.options("*", cors());
 app.use(express.json());
 app.use(express.static(path.resolve(process.cwd(), "public")));
 
-app.use("/admin", (req, res) => {
+app.use("/admin-panel", (req, res) => {
     return res.sendFile(
         path.resolve(process.cwd(), "public", "html", "index.html")
     );
