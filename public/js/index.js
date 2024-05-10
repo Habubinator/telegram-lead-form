@@ -1,8 +1,8 @@
-if (!document.referrer.includes("/login")) {
-    window.location.href = "../login";
-}
-
 document.addEventListener("DOMContentLoaded", function () {
+    if (!document.referrer.includes("/login")) {
+        document.body.innerHTML = "";
+        document.window.location.href = "../login";
+    }
     loadItems();
 });
 
