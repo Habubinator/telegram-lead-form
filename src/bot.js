@@ -13,7 +13,7 @@ function jsonToBoldString(jsonObj) {
     let i = 0;
     for (const key in jsonObj) {
         if (jsonObj.hasOwnProperty(key)) {
-            result += `<b>${key}</b>: ${jsonObj[key]}\n`;
+            result += `<b>${key}</b>: ${jsonObj[key]}\n`; 
         }
         i++;
     }

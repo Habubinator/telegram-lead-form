@@ -16,6 +16,32 @@ app.use("/admin", (req, res) => {
     );
 });
 
+app.use("/login", async (req, res) => {
+    if (req.url.includes("css") || req.url.includes("js")) {
+        return res.sendStatus(200);
+    } else {
+        return res.sendFile(
+            path.resolve(__dirname, "..", "public", "html", "login-form.html")
+        );
+    }
+});
+
+app.post("/api/login", async (req, res) => {
+    const { login, password } = req.body;
+    if (login && password) {
+        const data = JSON.parse(process.env.ADMIN_USERS);
+        for (const user of data) {
+            if (login === user.login && password === user.password) {
+                return res.sendStatus(200);
+            } else {
+                return res.status(400).send("Invalid login credentials.");
+            }
+        }
+    } else {
+        return res.sendStatus(400).send("No login credentials");
+    }
+});
+
 app.get("/api/getSettings", async (req, res) => {
     try {
         const userArr = [...users.values()];
